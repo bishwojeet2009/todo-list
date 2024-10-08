@@ -1,35 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import "./App.css";
+import TodoForm from "./components/TodoForm";
+import { TodoProvider } from "./contexts/TodoContext";
+import { Todo } from "./interface";
+import TodoItem from "./components/TodoItem";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [todoList, setTododList] = useState<Todo[]>([]);
+  function addTodo(todo: string) {
+    setTododList((prev) => [
+      { id: Date.now(), text: todo, complete: false },
+      ...prev,
+    ]);
+  }
+
+  function deleteTodo(id: number) {
+    setTododList((prev) => prev.filter((todo) => todo.id != id));
+  }
+  function toggleTodo(id: number) {
+    setTododList((prev) =>
+      prev.map((todo) =>
+        todo.id == id ? { ...todo, complete: !todo.complete } : todo
+      )
+    );
+  }
+
+  function updateTodo(id: number, text: string) {
+    setTododList((prev) =>
+      prev.map((todo) => (todo.id == id ? { ...todo, todo: text } : todo))
+    );
+  }
+  // Need to remove
+  useEffect(() => {
+    console.log(todoList);
+  }, [todoList]);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <TodoProvider
+      value={{ todoList, addTodo, deleteTodo, toggleTodo, updateTodo }}>
+      <div className="container-fluid">
+        <div className="mb-4">
+          {todoList.map((todo) => {
+            return <TodoItem key={todo.id} todo={todo} />;
+          })}
+        </div>
+
+        <TodoForm />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </TodoProvider>
+  );
 }
 
-export default App
+export default App;

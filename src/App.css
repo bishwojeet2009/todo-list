@@ -1,4 +1,4 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -39,4 +39,44 @@
 
 .read-the-docs {
   color: #888;
+} */
+
+.edit:hover {
+  scale: 1.2;
+}
+
+.edit:active {
+  scale: 0.8;
+}
+
+.delete:hover {
+  scale: 1.2;
+}
+
+.delete:active {
+  scale: 0.8;
+}
+
+.form-control {
+  border: 1px solid black !important;
+  box-shadow: none !important;
+  background: none !important;
+  border-radius: 4px !important;
+}
+.form-control:focus {
+  /* border: none !important; */
+  /* box-shadow: none !important; */
+}
+
+.form-control:read-only {
+  border: none !important;
+}
+
+.todoItem {
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.addTask {
+  border-radius: 4px;
 }
