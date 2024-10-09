@@ -51,7 +51,6 @@ function App() {
   }
 
   function updateTodo(id: number, text: string) {
-    // console.log("Text", text);
     setTododList((prev) => {
       let newTodoList = prev.map((todo) =>
         todo.id == id ? { ...todo, text: text } : todo
@@ -73,8 +72,6 @@ function App() {
 
   function setLocalStorage() {
     localStorage.setItem("todolist", JSON.stringify(todoList));
-    // setTodoHistory((prev) => [todoList, ...prev.slice(0, 2)]);
-    // setUndoTimes(0);
   }
 
   function getLocalStorage() {
@@ -89,29 +86,20 @@ function App() {
     setUndoTimes((prev) => {
       let newUndoTime =
         prev + 1 < todosHistory.length - 1 ? prev + 1 : todosHistory.length - 1;
-      console.log(newUndoTime);
       setTododList(todosHistory[newUndoTime]);
       return newUndoTime;
     });
-
-    // setTododList(todosHistory[undoTimes]);
   }
 
   function handleRedo() {
-    // setUndoTimes((prev) => (prev - 1 > 0 ? prev - 1 : 0));
-    // setTododList(todosHistory[undoTimes]);
-
     setUndoTimes((prev) => {
       let newUndoTime = prev - 1 > 0 ? prev - 1 : 0;
-      console.log(newUndoTime);
       setTododList(todosHistory[newUndoTime]);
       return newUndoTime;
     });
   }
 
   useEffect(setLocalStorage, [todoList]);
-
-  useEffect(() => console.log("History", todosHistory), [todosHistory]);
 
   return (
     <TodoProvider
@@ -127,8 +115,8 @@ function App() {
         search,
       }}>
       <div className="main">
-        <div className="container">
-          <h1 className="text-center py-3">Today Todo</h1>
+        <div className="container px-md-4">
+          <h2 className="text-center py-3 heading">Today Todo</h2>
           <Filter />
           <div className="my-4">
             {todoList
@@ -147,7 +135,7 @@ function App() {
               })}
           </div>
           <TodoForm />
-          <div className="mt-4">
+          <div className="py-4">
             <button className="UndoBtn" onClick={handleUndo}>
               <img src="src/assets/image/undo.png" width="30px" alt="Undo" />
             </button>

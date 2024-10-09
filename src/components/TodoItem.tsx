@@ -14,7 +14,7 @@ function TodoItem({ todo }: { todo: Todo }) {
 
   return (
     <div
-      className={`d-flex justify-content-between px-3 py-2 input-group todoItem mb-2 ${
+      className={`d-flex justify-content-between mb-2 py-2 px-3 todoItem  ${
         todo.complete ? "completed" : ""
       }`}>
       <input
@@ -28,14 +28,14 @@ function TodoItem({ todo }: { todo: Todo }) {
       {isEditable ? (
         <input
           type="text"
-          className="flex-grow-1 ml-2 mr-3 d-block editTodo"
+          className="flex-grow-1 ml-2 mr-3 editTodo"
           readOnly={!isEditable}
           value={todoMsg}
           onChange={(e) => setTodoMsg(e.target.value)}
         />
       ) : (
         <h5
-          className={`flex-grow-1 py-0 px-2 mb-0 ${
+          className={`flex-grow-1 py-0 px-2 todoText mb-0 ${
             todo.complete ? "lineThrough" : ""
           }`}>
           {todoMsg}
@@ -46,8 +46,8 @@ function TodoItem({ todo }: { todo: Todo }) {
         {isEditable ? (
           <img
             src="src/assets/image/upload.png"
-            className="edit"
-            alt="Edit"
+            className="update"
+            alt="update"
             width="20px"
             height="20px"
             onClick={updateTodoList}
