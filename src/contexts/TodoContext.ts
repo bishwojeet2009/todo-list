@@ -8,10 +8,15 @@ const TodoContext = React.createContext({
             complete: false
         }
     ],
+    filterValue: 'all',
+    searchValue: '',
     addTodo: (todo: string) => { },
     deleteTodo: (id: number) => { },
     toggleTodo: (id: number) => { },
-    updateTodo: (id: number, todo: string) => { }
+    updateTodo: (id: number, todo: string) => { },
+    filter: (value: string) => { },
+    search: (value: string) => { }
+
 })
 
 export const TodoProvider = TodoContext.Provider

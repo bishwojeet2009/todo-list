@@ -16,7 +16,7 @@ function TodoForm() {
     <form className="d-flex flex-column" onSubmit={handleSubmit}>
       <input
         type="text"
-        className="mb-2 p-2"
+        className="mb-2 p-2 addTaskInp"
         placeholder="Enter new Task"
         value={todo}
         onChange={(e) => setTodo(e.target.value)}

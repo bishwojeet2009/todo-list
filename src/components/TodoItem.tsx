@@ -15,12 +15,12 @@ function TodoItem({ todo }: { todo: Todo }) {
   return (
     <div
       className={`d-flex justify-content-between px-3 py-2 input-group todoItem mb-2 ${
-        todo.complete ? "bg-success bg-opacity-50" : ""
+        todo.complete ? "completed" : ""
       }`}>
       <input
         type="checkbox"
         checked={todo.complete}
-        onClick={() => {
+        onChange={() => {
           toggleTodo(todo.id);
           setIsEditable(false);
         }}
@@ -28,13 +28,18 @@ function TodoItem({ todo }: { todo: Todo }) {
       {isEditable ? (
         <input
           type="text"
-          className="form-control ms-2 me-3"
+          className="flex-grow-1 ml-2 mr-3 d-block editTodo"
           readOnly={!isEditable}
           value={todoMsg}
           onChange={(e) => setTodoMsg(e.target.value)}
         />
       ) : (
-        <h5 className="form-control py-0 px-2 mb-0">{todoMsg}</h5>
+        <h5
+          className={`flex-grow-1 py-0 px-2 mb-0 ${
+            todo.complete ? "lineThrough" : ""
+          }`}>
+          {todoMsg}
+        </h5>
       )}
 
       <div className="d-flex align-items-center">
@@ -67,7 +72,7 @@ function TodoItem({ todo }: { todo: Todo }) {
           src="src/assets/image/cross.png"
           width="20px"
           height="20px"
-          className="delete ms-3"
+          className="delete ml-3"
           onClick={() => deleteTodo(todo.id)}
           alt="Delete"
         />
