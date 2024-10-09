@@ -7,33 +7,60 @@ import TodoItem from "./components/TodoItem";
 import Filter from "./components/Filter";
 
 function App() {
+  const [todosHistory, setTodoHistory] = useState<Todo[][]>(
+    getLocalStorage().length > 0 ? [getLocalStorage()] : []
+  );
   const [todoList, setTododList] = useState<Todo[]>(getLocalStorage());
   const [filterValue, setFilterValue] = useState("all");
   const [searchValue, setSearchValue] = useState("");
+  const [undoTimes, setUndoTimes] = useState(0);
   function addTodo(todo: string) {
-    setTododList((prev) => [
-      { id: Date.now(), text: todo, complete: false },
-      ...prev,
-    ]);
+    setTododList((prev) => {
+      let newTodoList = [
+        { id: Date.now(), text: todo, complete: false },
+        ...prev,
+      ];
+      //For Undo
+      setTodoHistory((prev) => [newTodoList, ...prev.slice(0, 3)]);
+      setUndoTimes(0);
+
+      return newTodoList;
+    });
   }
 
   function deleteTodo(id: number) {
-    setTododList((prev) => prev.filter((todo) => todo.id != id));
+    setTododList((prev) => {
+      let newTodoList = prev.filter((todo) => todo.id != id);
+      //For Undo
+      setTodoHistory((prev) => [newTodoList, ...prev.slice(0, 3)]);
+      setUndoTimes(0);
+
+      return newTodoList;
+    });
   }
 
   function toggleTodo(id: number) {
-    setTododList((prev) =>
-      prev.map((todo) =>
+    setTododList((prev) => {
+      let newTodoList = prev.map((todo) =>
         todo.id == id ? { ...todo, complete: !todo.complete } : todo
-      )
-    );
+      );
+      setTodoHistory((prev) => [newTodoList, ...prev.slice(0, 3)]);
+      setUndoTimes(0);
+      return newTodoList;
+    });
   }
 
   function updateTodo(id: number, text: string) {
-    console.log("Text", text);
-    setTododList((prev) =>
-      prev.map((todo) => (todo.id == id ? { ...todo, text: text } : todo))
-    );
+    // console.log("Text", text);
+    setTododList((prev) => {
+      let newTodoList = prev.map((todo) =>
+        todo.id == id ? { ...todo, text: text } : todo
+      );
+      setTodoHistory((prev) => [newTodoList, ...prev.slice(0, 3)]);
+      setUndoTimes(0);
+
+      return newTodoList;
+    });
   }
 
   function filter(value: string) {
@@ -46,6 +73,8 @@ function App() {
 
   function setLocalStorage() {
     localStorage.setItem("todolist", JSON.stringify(todoList));
+    // setTodoHistory((prev) => [todoList, ...prev.slice(0, 2)]);
+    // setUndoTimes(0);
   }
 
   function getLocalStorage() {
@@ -53,12 +82,36 @@ function App() {
     if (todoList) {
       return JSON.parse(todoList);
     }
-
     return [];
   }
 
-  // Need to remove
+  function handleUndo() {
+    setUndoTimes((prev) => {
+      let newUndoTime =
+        prev + 1 < todosHistory.length - 1 ? prev + 1 : todosHistory.length - 1;
+      console.log(newUndoTime);
+      setTododList(todosHistory[newUndoTime]);
+      return newUndoTime;
+    });
+
+    // setTododList(todosHistory[undoTimes]);
+  }
+
+  function handleRedo() {
+    // setUndoTimes((prev) => (prev - 1 > 0 ? prev - 1 : 0));
+    // setTododList(todosHistory[undoTimes]);
+
+    setUndoTimes((prev) => {
+      let newUndoTime = prev - 1 > 0 ? prev - 1 : 0;
+      console.log(newUndoTime);
+      setTododList(todosHistory[newUndoTime]);
+      return newUndoTime;
+    });
+  }
+
   useEffect(setLocalStorage, [todoList]);
+
+  useEffect(() => console.log("History", todosHistory), [todosHistory]);
 
   return (
     <TodoProvider
@@ -94,6 +147,14 @@ function App() {
               })}
           </div>
           <TodoForm />
+          <div className="mt-4">
+            <button className="UndoBtn" onClick={handleUndo}>
+              <img src="src/assets/image/undo.png" width="30px" alt="Undo" />
+            </button>
+            <button className="UndoBtn ml-3" onClick={handleRedo}>
+              <img src="src/assets/image/redo.png" width="30px" alt="Redo" />
+            </button>
+          </div>
         </div>
       </div>
     </TodoProvider>
