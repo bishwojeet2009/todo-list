@@ -8,7 +8,7 @@ import Filter from "./components/Filter";
 
 function App() {
   const [todosHistory, setTodoHistory] = useState<Todo[][]>(
-    getLocalStorage().length > 0 ? [getLocalStorage()] : []
+    getLocalStorage().length > 0 ? [getLocalStorage()] : [[]]
   );
   const [todoList, setTododList] = useState<Todo[]>(getLocalStorage());
   const [filterValue, setFilterValue] = useState("all");
