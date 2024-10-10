@@ -9,19 +9,15 @@
   min-height: 90vh;
 }
 
-.edit,
-.update,
-.delete {
-  &:hover {
-    scale: 1.1;
-  }
+.edit:hover,
+.update:hover,
+.delete:hover {
+  scale: 1.1;
 }
-.edit,
-.update,
-.delete {
-  &:active {
-    scale: 0.9;
-  }
+.edit:active,
+.update:active,
+.delete:active {
+  scale: 0.8;
 }
 
 .editTodo {
@@ -51,6 +47,7 @@
 .addTask {
   border-radius: 4px;
 }
+
 .filterBtn {
   line-height: 16px;
   text-align: center;
@@ -60,30 +57,29 @@
   background-color: #ababab;
   cursor: pointer;
   border: 1px solid #e0e3eb;
-
-  &.active {
-    background-color: #56ad35;
-  }
-
-  &:active {
-    box-shadow: inset -5px -5px 10px #fff,
-      inset 4px 5px 10px rgba(216, 218, 225, 0.7) !important;
-  }
 }
 
-.UndoBtn {
+.filterBtn.active {
+  background-color: #56ad35;
+}
+.filterBtn:active {
+  box-shadow: inset -5px -5px 10px #fff,
+    inset 4px 5px 10px rgba(216, 218, 225, 0.7) !important;
+}
+
+.undoBtn {
   text-align: center;
   color: #ffffff;
   border-radius: 4px;
   background-color: #ffffff;
   cursor: pointer;
   border: 1px solid #e0e3eb;
+}
 
-  &:active {
-    box-shadow: inset -5px -5px 10px #fff,
-      inset 4px 5px 10px rgba(216, 218, 225, 0.7) !important;
-    scale: 0.9;
-  }
+.undoBtn:active {
+  box-shadow: inset -5px -5px 10px #fff,
+    inset 4px 5px 10px rgba(216, 218, 225, 0.7) !important;
+  scale: 0.9;
 }
 
 .lineThrough {
@@ -106,6 +102,6 @@
 
 @media screen and (max-width: 767px) {
   .heading {
-    font-size: 28px;
+    font-size: 24px;
   }
 }

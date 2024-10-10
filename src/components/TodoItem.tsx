@@ -4,7 +4,6 @@ import useTodo from "../contexts/TodoContext";
 function TodoItem({ todo }: { todo: Todo }) {
   const [todoMsg, setTodoMsg] = useState(todo.text);
   const { deleteTodo, toggleTodo, updateTodo } = useTodo();
-
   const [isEditable, setIsEditable] = useState(false);
 
   function updateTodoList() {

@@ -14,6 +14,7 @@ function App() {
   const [filterValue, setFilterValue] = useState("all");
   const [searchValue, setSearchValue] = useState("");
   const [undoTimes, setUndoTimes] = useState(0);
+
   function addTodo(todo: string) {
     setTododList((prev) => {
       let newTodoList = [
@@ -116,7 +117,7 @@ function App() {
       }}>
       <div className="main">
         <div className="container px-md-4">
-          <h2 className="text-center py-3 heading">Today Todo</h2>
+          <h2 className="text-center py-3 heading">Today Todos</h2>
           <Filter />
           <div className="my-4">
             {todoList
@@ -136,10 +137,10 @@ function App() {
           </div>
           <TodoForm />
           <div className="py-4">
-            <button className="UndoBtn" onClick={handleUndo}>
+            <button className="undoBtn" onClick={handleUndo}>
               <img src="src/assets/image/undo.png" width="30px" alt="Undo" />
             </button>
-            <button className="UndoBtn ml-3" onClick={handleRedo}>
+            <button className="undoBtn ml-3" onClick={handleRedo}>
               <img src="src/assets/image/redo.png" width="30px" alt="Redo" />
             </button>
           </div>

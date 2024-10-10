@@ -3,12 +3,12 @@ import React, { useContext } from "react";
 const TodoContext = React.createContext({
     todoList: [
         {
-            id: 1,
-            text: 'Task 1',
+            id: 0,
+            text: '',
             complete: false
         }
     ],
-    filterValue: 'all',
+    filterValue: '',
     searchValue: '',
     addTodo: (todo: string) => { },
     deleteTodo: (id: number) => { },
