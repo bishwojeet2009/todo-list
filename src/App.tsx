@@ -13,7 +13,7 @@ function App() {
   const [todoList, setTododList] = useState<Todo[]>(getLocalStorage());
   const [filterValue, setFilterValue] = useState("all");
   const [searchValue, setSearchValue] = useState("");
-  const [undoTimes, setUndoTimes] = useState(0);
+  const [_undoTimes, setUndoTimes] = useState(0);
 
   function addTodo(todo: string) {
     setTododList((prev) => {

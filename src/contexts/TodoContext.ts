@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 
+
+
 const TodoContext = React.createContext({
     todoList: [
         {
@@ -10,12 +12,12 @@ const TodoContext = React.createContext({
     ],
     filterValue: '',
     searchValue: '',
-    addTodo: (todo: string) => { },
-    deleteTodo: (id: number) => { },
-    toggleTodo: (id: number) => { },
-    updateTodo: (id: number, todo: string) => { },
-    filter: (value: string) => { },
-    search: (value: string) => { }
+    addTodo: (_todo: string) => { },
+    deleteTodo: (_id: number) => { },
+    toggleTodo: (_id: number) => { },
+    updateTodo: (_id: number, _todo: string) => { },
+    filter: (_value: string) => { },
+    search: (_value: string) => { }
 
 })
 
